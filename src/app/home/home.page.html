@@ -1,20 +1,48 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content padding>
+  <ion-item color="dark">
+    <ion-label>Walking Duration</ion-label>
+    <ion-datetime displayFormat="mm:ss" placeholder="Tap Here" [(ngModel)]="fullTime"></ion-datetime>
+  </ion-item>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <circle-progress (click)="startTime()"
+    [percent]="percent"
+    [maxPercent]="100"
+    [radius]="radius"
+    [outerStrokeWidth]="8"
+    [innerStrokeWidth]="8"
+    [outerStrokeColor]="'#b63546'"
+    [innerStrokeColor]="'#C7E596'"
+    [title]="'Time Elapsed'"
+    [titleColor]="'#e3e3e3'"
+    [showSubtitle]="false"
+    [animationDuration]="500"
+    [outerStrokeGradient]="true"
+    [outerStrokeGradientStopColor]="'#cf3c4f'"
+    [showTitle]="'Time Elapsed'"
+    [units]="'.'"
+  ></circle-progress>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+    <!-- Hours Min Seconds Reference -->
+    <p>{{ elapsed.h }}:{{ elapsed.m }}:{{ elapsed.s }}</p>
+    <p>This is cool sample timer app.</p>
+
+    <!-- https://ionicframework.com/docs/api/fab-button     -->
+    <!-- https://ionicons.com/ -->
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ng-container *ngIf="timer == false; else running">
+        <ion-fab-button (click)="startTime()">
+          <ion-icon name="play"></ion-icon>
+        </ion-fab-button>
+      </ng-container>
+      <!-- Button Running (defined above) -->
+      <ng-template #running>
+         <ion-fab-button (click)="stopTime()">
+          <ion-icon name="square"></ion-icon>
+        </ion-fab-button>
+      </ng-template>
+    </ion-fab>
+  
 </ion-content>
+
+<!-- https://www.npmjs.com/package/ng-circle-progress -->
+<!-- https://ionicframework.com/docs/api/datetime -->
